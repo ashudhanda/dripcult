@@ -1,0 +1,4 @@
+Yaha apni product images daalo:
+1-front.jpg 1-back.jpg 1-model-front.jpg 1-model-back.jpg
+2-front.jpg ... 8-model-back.jpg
+(Naming exact honi chahiye — README.md dekho)
