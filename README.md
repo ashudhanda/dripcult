@@ -44,7 +44,7 @@ Har product ki 4 images, naming EXACT ye honi chahiye:
 
 ## 🌓 Theme toggle
 
-Navbar me right side ☀️/🌙 button — dark ↔ light. User ki choice localStorage me save hoti hai.
+Navbar me right side ☀️ / 🌙 button — dark ↔ light. User ki choice localStorage me save hoti hai.
 
 ## 📦 Features
 
@@ -59,4 +59,4 @@ Navbar me right side ☀️/🌙 button — dark ↔ light. User ki choice local
 
 1. GitHub pe repo banao, code push karo
 2. [Netlify](https://netlify.com) / [Vercel](https://vercel.com) pe "Import from GitHub" — done
-3. Ya GitHub Pages: repo Settings → Pages → branch select karo
+3. Ya GitHub Pages: repo Settings → Pages → branch select karo 
