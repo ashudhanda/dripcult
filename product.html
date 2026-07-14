@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — DRIPCULT</title>
+  <script>
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+    function imgFail(el){ el.style.display='none'; var w = el.closest('.ph-wrap'); if (w) w.classList.add('ph'); }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <button class="nav-burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <a href="index.html" class="logo">DRIP<span>CULT</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="shop.html">New Drop</a></li>
+      <li><a href="index.html#about">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" data-theme-toggle aria-label="Toggle light/dark theme"><span class="t-icon">☀️</span></button>
+      <button class="icon-btn cart-btn" id="cartBtn" aria-label="Open cart">🛍<span class="cart-count" id="cartCount">0</span></button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="shop.html">New Drop</a>
+    <a href="index.html#about">About</a>
+  </div>
+
+  <main class="container" id="productPage">
+    <div class="product-layout">
+      <div class="gallery">
+        <div class="gallery-main ph-wrap" id="galleryMain" data-label="Product image">
+          <img id="mainImg" src="" alt="Product image">
+        </div>
+        <div class="thumbs" id="thumbs"></div>
+      </div>
+      <div class="p-info">
+        <p class="crumb"><a href="shop.html">Shop</a> / <span id="crumbName"></span></p>
+        <h1 id="pName"></h1>
+        <div class="price-row big">
+          <span class="price" id="pPrice"></span>
+          <s class="mrp" id="pMrp"></s>
+          <span class="off" id="pOff"></span>
+        </div>
+        <p class="p-desc" id="pDesc"></p>
+        <p class="label">Select Size</p>
+        <div class="sizes" id="sizes"></div>
+        <div class="p-actions">
+          <button class="btn btn-accent" id="addBtn">Add to Cart</button>
+          <a class="btn btn-wa" id="waBtn" href="#" target="_blank" rel="noopener">Order on WhatsApp</a>
+        </div>
+        <div class="accordions">
+          <details class="acc" open>
+            <summary>Fabric & Fit</summary>
+            <p id="pFit">Oversized fit. Model is wearing size M.</p>
+          </details>
+          <details class="acc">
+            <summary>Shipping & Returns</summary>
+            <p>Free shipping on prepaid orders. COD available. 7-day easy size exchange.</p>
+          </details>
+          <details class="acc">
+            <summary>Wash Care</summary>
+            <p>Machine wash cold, inside out. Do not bleach. Do not iron on print.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">You May Also <em>Like</em></h2>
+      </div>
+      <div class="h-scroll" id="relatedRow"></div>
+    </section>
+  </main>
+
+  <!-- Mobile sticky buy bar -->
+  <div class="sticky-bar" id="stickyBar">
+    <div class="sticky-price"><span class="price" id="sPrice"></span><s class="mrp" id="sMrp"></s></div>
+    <button class="btn btn-accent" id="stickyAdd">Add to Cart</button>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="foot-note">
+        <span>© 2026 DRIPCULT. All rights reserved.</span>
+        <span>Made with 🔥 in India</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DRIPCULT — Streetwear That Speaks</title>
+  <meta name="description" content="Premium oversized streetwear — heavyweight tees, cargos, hoodies & sneakers. Wear the street.">
+  <script>
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+    function imgFail(el){ el.style.display='none'; var w = el.closest('.ph-wrap'); if (w) w.classList.add('ph'); }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <button class="nav-burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <a href="index.html" class="logo">DRIP<span>CULT</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="shop.html">New Drop</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" data-theme-toggle aria-label="Toggle light/dark theme"><span class="t-icon">☀️</span></button>
+      <button class="icon-btn cart-btn" id="cartBtn" aria-label="Open cart">🛍<span class="cart-count" id="cartCount">0</span></button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="shop.html">New Drop</a>
+    <a href="#about" data-close-menu>About</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-kicker">// Drop 002 — Live Now</p>
+        <h1 class="hero-title"><span>Wear</span><span>The</span><span>Street.</span></h1>
+        <p class="hero-sub">Oversized fits. Heavyweight fabric. Zero compromise. Made for the ones who don't blend in.</p>
+        <div class="hero-cta">
+          <a href="shop.html" class="btn btn-accent">Shop The Drop</a>
+          <a href="#featured" class="btn btn-ghost">Explore ↓</a>
+        </div>
+      </div>
+      <div class="hero-img ph-wrap" data-label="hero.jpg — yaha apni hero image daalo">
+        <img src="images/hero.jpg" alt="Model wearing DRIPCULT streetwear" onerror="imgFail(this)">
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Free Shipping ✦ New Arrivals ✦ COD Available ✦ Easy Returns ✦ Drop 002 Live ✦</span>
+      <span>Free Shipping ✦ New Arrivals ✦ COD Available ✦ Easy Returns ✦ Drop 002 Live ✦</span>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <section class="section" id="featured">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <h2 class="section-title">Fresh <em>Drops</em></h2>
+        <a href="shop.html" class="link-more">View all →</a>
+      </div>
+      <div class="h-scroll" id="featuredRow"></div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <h2 class="section-title">Shop By <em>Category</em></h2>
+      </div>
+      <div class="cats">
+        <a href="shop.html?cat=tshirts" class="cat ph-wrap" data-label="1-model-front.jpg" data-reveal>
+          <img src="images/products/1-model-front.jpg" alt="Tees & Shirts" loading="lazy" onerror="imgFail(this)">
+          <div class="cat-label"><h3>Tees & Shirts</h3><span>Shop now →</span></div>
+        </a>
+        <a href="shop.html?cat=bottoms" class="cat ph-wrap" data-label="3-model-front.jpg" data-reveal>
+          <img src="images/products/3-model-front.jpg" alt="Bottoms" loading="lazy" onerror="imgFail(this)">
+          <div class="cat-label"><h3>Bottoms</h3><span>Shop now →</span></div>
+        </a>
+        <a href="shop.html?cat=footwear" class="cat ph-wrap" data-label="7-model-front.jpg" data-reveal>
+          <img src="images/products/7-model-front.jpg" alt="Footwear" loading="lazy" onerror="imgFail(this)">
+          <div class="cat-label"><h3>Footwear</h3><span>Shop now →</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNER -->
+  <section class="section">
+    <div class="container">
+      <div class="banner ph-wrap" data-label="lookbook.jpg — yaha wide lookbook image daalo" data-reveal>
+        <img src="images/lookbook.jpg" alt="DRIPCULT lookbook" loading="lazy" onerror="imgFail(this)">
+        <div class="banner-content">
+          <h2>Don't Blend In.</h2>
+          <a href="shop.html" class="btn btn-accent">Explore Collection</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section section-alt" id="about">
+    <div class="container">
+      <div class="features">
+        <div class="feature" data-reveal><span class="f-icon">🚚</span><h4>Free Shipping</h4><p>On all prepaid orders across India.</p></div>
+        <div class="feature" data-reveal><span class="f-icon">💵</span><h4>COD Available</h4><p>Pay when it reaches your door.</p></div>
+        <div class="feature" data-reveal><span class="f-icon">🔁</span><h4>7-Day Returns</h4><p>Easy size exchange, no drama.</p></div>
+        <div class="feature" data-reveal><span class="f-icon">🧵</span><h4>Heavyweight Fabric</h4><p>240–450 GSM. Premium only.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="logo">DRIP<span>CULT</span></a>
+          <p class="foot-desc">Premium oversized streetwear born on the streets of India. Wear the street.</p>
+        </div>
+        <div>
+          <h5>Shop</h5>
+          <ul>
+            <li><a href="shop.html?cat=tshirts">T-Shirts</a></li>
+            <li><a href="shop.html?cat=bottoms">Bottoms</a></li>
+            <li><a href="shop.html?cat=hoodies">Hoodies</a></li>
+            <li><a href="shop.html?cat=footwear">Footwear</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Help</h5>
+          <ul>
+            <li><a href="#">Shipping</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Stay in the loop</h5>
+          <form class="news-form" onsubmit="event.preventDefault(); this.querySelector('input').value=''; alert('Subscribed! 🎉');">
+            <input type="email" placeholder="Your email" required aria-label="Email">
+            <button class="btn btn-accent" type="submit">Join</button>
+          </form>
+          <div class="socials"><a href="#" aria-label="Instagram">Instagram</a><a href="#" aria-label="YouTube">YouTube</a></div>
+        </div>
+      </div>
+      <div class="foot-note">
+        <span>© 2026 DRIPCULT. All rights reserved.</span>
+        <span>Made with 🔥 in India</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

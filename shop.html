@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — DRIPCULT</title>
+  <meta name="description" content="Shop premium oversized streetwear — tees, cargos, hoodies & sneakers.">
+  <script>
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+    function imgFail(el){ el.style.display='none'; var w = el.closest('.ph-wrap'); if (w) w.classList.add('ph'); }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="nav">
+    <button class="nav-burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <a href="index.html" class="logo">DRIP<span>CULT</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="shop.html">New Drop</a></li>
+      <li><a href="index.html#about">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" data-theme-toggle aria-label="Toggle light/dark theme"><span class="t-icon">☀️</span></button>
+      <button class="icon-btn cart-btn" id="cartBtn" aria-label="Open cart">🛍<span class="cart-count" id="cartCount">0</span></button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="shop.html">New Drop</a>
+    <a href="index.html#about">About</a>
+  </div>
+
+  <main class="container">
+    <div class="page-head">
+      <h1 class="section-title">The <em>Collection</em></h1>
+      <p class="page-sub">8 pieces. Zero fillers. All heat.</p>
+    </div>
+
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="tshirts">T-Shirts</button>
+      <button class="filter-btn" data-filter="shirts">Shirts</button>
+      <button class="filter-btn" data-filter="bottoms">Bottoms</button>
+      <button class="filter-btn" data-filter="hoodies">Hoodies</button>
+      <button class="filter-btn" data-filter="footwear">Footwear</button>
+    </div>
+
+    <div class="grid" id="shopGrid"></div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="foot-note">
+        <span>© 2026 DRIPCULT. All rights reserved.</span>
+        <span>Made with 🔥 in India</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
