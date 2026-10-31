@@ -85,7 +85,13 @@ cartOverlay.addEventListener("click", () => openCart(false));
 
 /* ==================== CART LOGIC ==================== */
 let cart = [];
-try { cart = JSON.parse(localStorage.getItem("dripcult_cart") || "[]"); } catch (e) { cart = []; }
+try {
+  const stored = JSON.parse(localStorage.getItem("dripcult_cart") || "[]");
+  // Valid JSON is not necessarily a cart: a hand-edited or foreign value
+  // (object, string, number) would crash renderCart's reduce/find, so
+  // only accept an array and fall back to an empty cart otherwise.
+  cart = Array.isArray(stored) ? stored : [];
+} catch (e) { cart = []; }
 
 function saveCart() {
   localStorage.setItem("dripcult_cart", JSON.stringify(cart));
