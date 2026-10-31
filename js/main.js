@@ -323,15 +323,19 @@ if (productPage) {
       sizesEl.querySelectorAll(".size-btn").forEach((x) => x.classList.remove("active"));
       b.classList.add("active");
       selectedSize = b.dataset.size;
+      document.getElementById("waBtn").href = waOrderUrl(selectedSize);
     })
   );
 
   // Actions
   document.getElementById("addBtn").addEventListener("click", () => addToCart(p.id, selectedSize));
   document.getElementById("stickyAdd").addEventListener("click", () => addToCart(p.id, selectedSize));
-  document.getElementById("waBtn").href =
+  // The WhatsApp link embeds the size, so it must be rebuilt on every size
+  // change — building it once here left it stuck on the default size.
+  const waOrderUrl = (size) =>
     `https://wa.me/${WHATSAPP_NUMBER}?text=` +
-    encodeURIComponent(`Hi DRIPCULT! I want to order: ${p.name} (Size ${selectedSize}) — ${fmt(p.price)}`);
+    encodeURIComponent(`Hi DRIPCULT! I want to order: ${p.name} (Size ${size}) — ${fmt(p.price)}`);
+  document.getElementById("waBtn").href = waOrderUrl(selectedSize);
 
   // Related products
   const related = PRODUCTS.filter((x) => x.id !== p.id).slice(0, 6);
