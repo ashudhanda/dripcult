@@ -3,6 +3,9 @@
 // Yaha apne products add/edit karo.
 // images array = images/products/ folder ke filenames (bina .jpg ke)
 // Har product ki 4 images: front, back, model-front, model-back
+// category MUST be one of: tshirts, shirts, bottoms, hoodies, footwear —
+// ye values shop.html ke filter buttons (data-filter) se match karni chahiye.
+// Koi aur value doge to product sirf "All" filter me dikhega, apni category me nahi.
 // ============================================
 
 const PRODUCTS = [
