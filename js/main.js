@@ -158,11 +158,17 @@ function renderCart() {
 document.getElementById("checkoutBtn").addEventListener("click", () => {
   if (!cart.length) return;
   let total = 0;
-  const lines = cart.map((c) => {
-    const p = PRODUCTS.find((x) => x.id === c.id);
-    total += p.price * c.qty;
-    return `• ${p.name} (${c.size}) x${c.qty} — ${fmt(p.price * c.qty)}`;
-  });
+  // Skip items whose product left the catalogue since they were added —
+  // without this guard a stale cart entry crashed checkout on p.price.
+  const lines = cart
+    .map((c) => {
+      const p = PRODUCTS.find((x) => x.id === c.id);
+      if (!p) return null;
+      total += p.price * c.qty;
+      return `• ${p.name} (${c.size}) x${c.qty} — ${fmt(p.price * c.qty)}`;
+    })
+    .filter(Boolean);
+  if (!lines.length) return;
   const msg = `Hi DRIPCULT! Mera order:\n\n${lines.join("\n")}\n\nTotal: ${fmt(total)}`;
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
 });
