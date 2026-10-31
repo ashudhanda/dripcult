@@ -141,12 +141,12 @@ function renderCart() {
           <h4>${p.name}</h4>
           <p class="ci-meta">Size: ${c.size} · ${fmt(p.price)}</p>
           <div class="qty-row">
-            <button class="qty-btn" data-qty="-1" data-i="${i}" aria-label="Decrease">−</button>
+            <button class="qty-btn" data-qty="-1" data-i="${i}" aria-label="Decrease quantity of ${p.name}">−</button>
             <span>${c.qty}</span>
-            <button class="qty-btn" data-qty="1" data-i="${i}" aria-label="Increase">+</button>
+            <button class="qty-btn" data-qty="1" data-i="${i}" aria-label="Increase quantity of ${p.name}">+</button>
           </div>
         </div>
-        <button class="ci-remove" data-remove="${i}">Remove</button>
+        <button class="ci-remove" data-remove="${i}" aria-label="Remove ${p.name} from cart">Remove</button>
       </div>`;
     })
     .join("");
