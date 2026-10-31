@@ -34,15 +34,22 @@ updateThemeIcons();
 const burger = document.getElementById("burger");
 const mobileMenu = document.getElementById("mobileMenu");
 if (burger && mobileMenu) {
+  // The button had no expanded state, so assistive tech could not tell
+  // whether the menu was open. Set it here (no HTML change needed) and
+  // keep it in sync on every open/close path.
+  burger.setAttribute("aria-controls", "mobileMenu");
+  burger.setAttribute("aria-expanded", "false");
   burger.addEventListener("click", () => {
     const open = mobileMenu.classList.toggle("open");
     burger.classList.toggle("open", open);
+    burger.setAttribute("aria-expanded", String(open));
     document.body.style.overflow = open ? "hidden" : "";
   });
   mobileMenu.querySelectorAll("a").forEach((a) =>
     a.addEventListener("click", () => {
       mobileMenu.classList.remove("open");
       burger.classList.remove("open");
+      burger.setAttribute("aria-expanded", "false");
       document.body.style.overflow = "";
     })
   );
