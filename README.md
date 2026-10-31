@@ -55,6 +55,10 @@ Navbar me right side ☀️ / 🌙 button — dark ↔ light. User ki choice loc
 - Product page: 4-image gallery, size selector, WhatsApp order button
 - Image missing ho toh graceful placeholder
 
+## 🔗 Shop filters (deep links)
+
+Shop page ko pre-filtered khola ja sakta hai: `shop.html?cat=tshirts` (ya `shirts`, `bottoms`, `hoodies`, `footwear`). Category ki value `js/products.js` ke `category` field se match karni chahiye; koi galat/unknown value ho to page "All" dikhata hai.
+
 ## 🌐 Deploy (FREE)
 
 1. GitHub pe repo banao, code push karo
