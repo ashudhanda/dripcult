@@ -94,6 +94,10 @@ function openCart(open) {
 document.getElementById("cartBtn")?.addEventListener("click", () => openCart(true));
 document.getElementById("cartClose").addEventListener("click", () => openCart(false));
 cartOverlay.addEventListener("click", () => openCart(false));
+// Keyboard users had no way to dismiss the drawer except the close button.
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && cartDrawer.classList.contains("open")) openCart(false);
+});
 
 /* ==================== CART LOGIC ==================== */
 let cart = [];
