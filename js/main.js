@@ -102,7 +102,13 @@ try {
   // Valid JSON is not necessarily a cart: a hand-edited or foreign value
   // (object, string, number) would crash renderCart's reduce/find, so
   // only accept an array and fall back to an empty cart otherwise.
-  cart = Array.isArray(stored) ? stored : [];
+  // Also normalise quantities: a hand-edited value (0, negative, fraction,
+  // non-number) would otherwise show a wrong count or a negative total.
+  cart = Array.isArray(stored)
+    ? stored
+        .filter((c) => c && Number.isFinite(c.qty))
+        .map((c) => ({ ...c, qty: Math.max(1, Math.floor(c.qty)) }))
+    : [];
 } catch (e) { cart = []; }
 
 function saveCart() {
