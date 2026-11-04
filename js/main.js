@@ -279,14 +279,20 @@ if (shopGrid) {
   const validCats = [...btns].map((b) => b.dataset.filter);
   if (!validCats.includes(active)) active = "all";
 
+  // Keep aria-pressed in sync with the visual .active state so the
+  // selected filter is announced, not just shown.
+  const syncFilterPressed = () =>
+    btns.forEach((x) => x.setAttribute("aria-pressed", String(x.classList.contains("active"))));
   btns.forEach((b) => {
     b.classList.toggle("active", b.dataset.filter === active);
     b.addEventListener("click", () => {
       btns.forEach((x) => x.classList.remove("active"));
       b.classList.add("active");
+      syncFilterPressed();
       renderGrid(b.dataset.filter);
     });
   });
+  syncFilterPressed();
   renderGrid(active);
 }
 
