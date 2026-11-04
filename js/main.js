@@ -8,7 +8,12 @@ const WHATSAPP_NUMBER = "919999999999";
 
 const fmt = (n) => "\u20b9" + n.toLocaleString("en-IN");
 const imgSrc = (name) => `images/products/${name}.jpg`;
-const offPct = (p) => Math.round((1 - p.price / p.mrp) * 100);
+// A missing or zero MRP used to produce NaN/Infinity in the "% off" badge,
+// and a price above MRP produced a negative discount. Clamp to a sane 0-100.
+const offPct = (p) => {
+  if (!p.mrp || p.mrp <= 0) return 0;
+  return Math.max(0, Math.round((1 - p.price / p.mrp) * 100));
+};
 
 /* ==================== THEME TOGGLE ==================== */
 const rootEl = document.documentElement;
