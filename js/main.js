@@ -300,6 +300,9 @@ if (productPage) {
   document.title = `${p.name} — DRIPCULT`;
   document.getElementById("crumbName").textContent = p.name;
   document.getElementById("pName").textContent = p.name;
+  // The gallery image had a generic "Product image" alt in HTML; give
+  // screen readers the actual product name instead.
+  document.getElementById("mainImg").alt = p.name;
   document.getElementById("pPrice").textContent = fmt(p.price);
   document.getElementById("pMrp").textContent = fmt(p.mrp);
   document.getElementById("pOff").textContent = offPct(p) + "% off";
