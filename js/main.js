@@ -111,6 +111,10 @@ function saveCart() {
 }
 
 function addToCart(id, size) {
+  // Ignore unknown products/sizes instead of creating a dead cart entry
+  // that renderCart and checkout would silently skip.
+  const product = PRODUCTS.find((x) => x.id === id);
+  if (!product || !product.sizes.includes(size)) return;
   const found = cart.find((c) => c.id === id && c.size === size);
   if (found) found.qty += 1;
   else cart.push({ id, size, qty: 1 });
