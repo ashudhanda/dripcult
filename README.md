@@ -1,7 +1,7 @@
 # DRIPCULT — Streetwear Ecommerce Demo
 
 Dark streetwear theme + light mode toggle. Pure HTML/CSS/JS — koi build step nahi.
-GSAP + ScrollTrigger + Lenis CDN se load hote hai.
+GSAP (core only) CDN se load hota hai — ScrollTrigger aur Lenis use nahi hote, scrolling native hai.
 
 ## 🚀 Kaise chalaye
 
@@ -49,7 +49,7 @@ Navbar me right side ☀️ / 🌙 button — dark ↔ light. User ki choice loc
 ## 📦 Features
 
 - Fully mobile responsive (2-col grid, fullscreen menu, sticky add-to-cart bar)
-- GSAP hero animation + scroll reveals + Lenis smooth scroll
+- GSAP hero entrance animation (scrolling native hai, koi smooth-scroll library nahi)
 - Cart (localStorage) + WhatsApp checkout
 - Shop page filters (category-wise)
 - Product page: 4-image gallery, size selector, WhatsApp order button
