@@ -151,7 +151,7 @@
         </div>
         <div>
           <h5>Stay in the loop</h5>
-          <form class="news-form" onsubmit="event.preventDefault(); this.querySelector('input').value=''; alert('Subscribed! 🎉');">
+          <form class="news-form" onsubmit="event.preventDefault(); var b=this.querySelector('button'); b.textContent='Subscribed ✓'; b.disabled=true; this.querySelector('input').value='';">
             <input type="email" placeholder="Your email" required aria-label="Email">
             <button class="btn btn-accent" type="submit">Join</button>
           </form>
