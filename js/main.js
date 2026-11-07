@@ -85,10 +85,14 @@ document.getElementById("waFloat").href =
 
 const cartDrawer = document.getElementById("cartDrawer");
 const cartOverlay = document.getElementById("cartOverlay");
+// The drawer starts closed but off-screen, so keep it out of the tab order
+// until it is opened — otherwise keyboard users tab through hidden controls.
+cartDrawer.inert = true;
 
 function openCart(open) {
   cartDrawer.classList.toggle("open", open);
   cartOverlay.classList.toggle("open", open);
+  cartDrawer.inert = !open;
   document.body.style.overflow = open ? "hidden" : "";
 }
 document.getElementById("cartBtn")?.addEventListener("click", () => openCart(true));
