@@ -268,7 +268,11 @@ if (featuredRow) {
 const shopGrid = document.getElementById("shopGrid");
 if (shopGrid) {
   const renderGrid = (filter) => {
-    const list = filter === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.category === filter);
+    // "new" is a tag filter, not a category: show products tagged New Drop.
+    const list =
+      filter === "all" ? PRODUCTS
+      : filter === "new" ? PRODUCTS.filter((p) => p.tag === "New Drop")
+      : PRODUCTS.filter((p) => p.category === filter);
     shopGrid.innerHTML = list.map(productCard).join("") || `<p class="cart-empty">No products yet.</p>`;
     attachCardCycler(shopGrid);
   };
