@@ -152,7 +152,7 @@ function addToCart(id, size) {
   // Ignore unknown products/sizes instead of creating a dead cart entry
   // that renderCart and checkout would silently skip.
   const product = PRODUCTS.find((x) => x.id === id);
-  if (!product || !product.sizes.includes(size)) return;
+  if (!product || !Array.isArray(product.sizes) || !product.sizes.includes(size)) return;
   const found = cart.find((c) => c.id === id && c.size === size);
   if (found) found.qty += 1;
   else cart.push({ id, size, qty: 1 });
@@ -237,6 +237,12 @@ renderCart();
 
 /* ==================== PRODUCT CARD ==================== */
 function productCard(p) {
+  // Only show the struck-through MRP and "% off" when there is a real
+  // discount — a missing MRP used to render as "₹NaN" with "0% off".
+  const hasDiscount = p.mrp && p.mrp > p.price;
+  const discountHtml = hasDiscount
+    ? `<s class="mrp">${fmt(p.mrp)}</s><span class="off">${offPct(p)}% off</span>`
+    : "";
   return `
   <a class="card" href="product.html?id=${p.id}" data-images="${p.images.join(',')}">
     <div class="card-img ph-wrap" data-label="${p.images[0]}.jpg">
@@ -247,8 +253,7 @@ function productCard(p) {
       <h4>${p.name}</h4>
       <div class="price-row">
         <span class="price">${fmt(p.price)}</span>
-        <s class="mrp">${fmt(p.mrp)}</s>
-        <span class="off">${offPct(p)}% off</span>
+        ${discountHtml}
       </div>
     </div>
   </a>`;
@@ -345,8 +350,9 @@ if (productPage) {
   // screen readers the actual product name instead.
   document.getElementById("mainImg").alt = p.name;
   document.getElementById("pPrice").textContent = fmt(p.price);
-  document.getElementById("pMrp").textContent = fmt(p.mrp);
-  document.getElementById("pOff").textContent = offPct(p) + "% off";
+  const hasDiscount = p.mrp && p.mrp > p.price;
+  document.getElementById("pMrp").textContent = hasDiscount ? fmt(p.mrp) : "";
+  document.getElementById("pOff").textContent = hasDiscount ? offPct(p) + "% off" : "";
   document.getElementById("pDesc").textContent = p.desc;
   document.getElementById("sPrice").textContent = fmt(p.price);
   document.getElementById("sMrp").textContent = fmt(p.mrp);
@@ -381,7 +387,7 @@ if (productPage) {
       setMain(t.dataset.name);
     })
   );
-  setMain(p.images[0]);
+  if (p.images.length) setMain(p.images[0]);
 
   // Sizes
   const sizesEl = document.getElementById("sizes");
