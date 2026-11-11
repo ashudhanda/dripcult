@@ -13,7 +13,12 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
   <script>
-    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+    // localStorage throws in some private modes; without this guard the
+    // script dies here and imgFail is never defined, so every image
+    // onerror below throws a ReferenceError.
+    var savedTheme = 'dark';
+    try { savedTheme = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+    document.documentElement.setAttribute('data-theme', savedTheme);
     function imgFail(el){ el.style.display='none'; var w = el.closest('.ph-wrap'); if (w) w.classList.add('ph'); }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
