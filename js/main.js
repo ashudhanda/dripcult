@@ -322,6 +322,9 @@ if (shopGrid) {
       b.classList.add("active");
       syncFilterPressed();
       renderGrid(b.dataset.filter);
+      // Keep the URL in sync so a refresh or a shared link re-opens the
+      // same filter instead of silently falling back to "All".
+      history.replaceState(null, "", `?cat=${b.dataset.filter}`);
     });
   });
   syncFilterPressed();
