@@ -75,7 +75,7 @@ document.body.insertAdjacentHTML(
   "beforeend",
   `
   <div class="cart-overlay" id="cartOverlay"></div>
-  <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping cart">
+  <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Shopping cart">
     <div class="cart-head">
       <h3>Your Cart</h3>
       <button class="icon-btn" id="cartClose" aria-label="Close cart">✕</button>
@@ -104,6 +104,11 @@ function openCart(open) {
   cartOverlay.classList.toggle("open", open);
   cartDrawer.inert = !open;
   document.body.style.overflow = open ? "hidden" : "";
+  // Move focus into the drawer when it opens and back to the cart button
+  // when it closes, so keyboard users are never stranded behind it.
+  // (inert is cleared first, otherwise the focus call is a no-op.)
+  if (open) document.getElementById("cartClose").focus();
+  else document.getElementById("cartBtn")?.focus();
 }
 document.getElementById("cartBtn")?.addEventListener("click", () => openCart(true));
 document.getElementById("cartClose").addEventListener("click", () => openCart(false));
