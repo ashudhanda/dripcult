@@ -6,7 +6,12 @@
   <title>Product — DRIPCULT</title>
   <meta name="description" content="Shop DRIPCULT streetwear — heavyweight tees, cargos, hoodies & sneakers with size selector and WhatsApp ordering.">
   <script>
-    document.documentElement.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+    // localStorage throws in some private modes; without this guard the
+    // script dies here and imgFail is never defined, so every image
+    // onerror below throws a ReferenceError.
+    var savedTheme = 'dark';
+    try { savedTheme = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+    document.documentElement.setAttribute('data-theme', savedTheme);
     function imgFail(el){ el.style.display='none'; var w = el.closest('.ph-wrap'); if (w) w.classList.add('ph'); }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
