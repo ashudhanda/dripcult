@@ -48,6 +48,16 @@ updateThemeIcons();
 /* ==================== MOBILE MENU ==================== */
 const burger = document.getElementById("burger");
 const mobileMenu = document.getElementById("mobileMenu");
+// Single close path shared by the menu links and the Escape key, so the
+// expanded state, label and body scroll lock can never drift apart.
+function closeMobileMenu() {
+  if (!burger || !mobileMenu) return;
+  mobileMenu.classList.remove("open");
+  burger.classList.remove("open");
+  burger.setAttribute("aria-expanded", "false");
+  burger.setAttribute("aria-label", "Open menu");
+  document.body.style.overflow = "";
+}
 if (burger && mobileMenu) {
   // The button had no expanded state, so assistive tech could not tell
   // whether the menu was open. Set it here (no HTML change needed) and
@@ -58,15 +68,12 @@ if (burger && mobileMenu) {
     const open = mobileMenu.classList.toggle("open");
     burger.classList.toggle("open", open);
     burger.setAttribute("aria-expanded", String(open));
+    // The label used to stay "Open menu" while the menu was open.
+    burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     document.body.style.overflow = open ? "hidden" : "";
   });
   mobileMenu.querySelectorAll("a").forEach((a) =>
-    a.addEventListener("click", () => {
-      mobileMenu.classList.remove("open");
-      burger.classList.remove("open");
-      burger.setAttribute("aria-expanded", "false");
-      document.body.style.overflow = "";
-    })
+    a.addEventListener("click", closeMobileMenu)
   );
 }
 
@@ -116,6 +123,8 @@ cartOverlay.addEventListener("click", () => openCart(false));
 // Keyboard users had no way to dismiss the drawer except the close button.
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && cartDrawer.classList.contains("open")) openCart(false);
+  // Keyboard users previously had no way to dismiss the mobile menu.
+  if (e.key === "Escape" && mobileMenu && mobileMenu.classList.contains("open")) closeMobileMenu();
 });
 
 /* ==================== CART LOGIC ==================== */
