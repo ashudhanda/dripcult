@@ -6,6 +6,16 @@
 // ⚠️ APNA WHATSAPP NUMBER YAHA DAALO (country code ke saath, bina + ke)
 const WHATSAPP_NUMBER = "919999999999";
 
+// localStorage can throw (private mode, disabled cookies, full quota).
+// A throw used to kill the theme toggle and cart saves outright, so all
+// storage access goes through these guards and degrades to in-memory state.
+function storageGet(key) {
+  try { return localStorage.getItem(key); } catch (e) { return null; }
+}
+function storageSet(key, value) {
+  try { localStorage.setItem(key, value); } catch (e) { /* storage unavailable — keep in-memory state */ }
+}
+
 const fmt = (n) => "\u20b9" + n.toLocaleString("en-IN");
 const imgSrc = (name) => `images/products/${name}.jpg`;
 // A missing or zero MRP used to produce NaN/Infinity in the "% off" badge,
@@ -29,7 +39,7 @@ document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
   btn.addEventListener("click", () => {
     const next = rootEl.getAttribute("data-theme") === "dark" ? "light" : "dark";
     rootEl.setAttribute("data-theme", next);
-    localStorage.setItem("theme", next);
+    storageSet("theme", next);
     updateThemeIcons();
   });
 });
@@ -106,7 +116,7 @@ document.addEventListener("keydown", (e) => {
 /* ==================== CART LOGIC ==================== */
 let cart = [];
 try {
-  const stored = JSON.parse(localStorage.getItem("dripcult_cart") || "[]");
+  const stored = JSON.parse(storageGet("dripcult_cart") || "[]");
   // Valid JSON is not necessarily a cart: a hand-edited or foreign value
   // (object, string, number) would crash renderCart's reduce/find, so
   // only accept an array and fall back to an empty cart otherwise.
@@ -120,7 +130,7 @@ try {
 } catch (e) { cart = []; }
 
 function saveCart() {
-  localStorage.setItem("dripcult_cart", JSON.stringify(cart));
+  storageSet("dripcult_cart", JSON.stringify(cart));
   renderCart();
 }
 
