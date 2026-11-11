@@ -355,7 +355,7 @@ if (productPage) {
   document.getElementById("pOff").textContent = hasDiscount ? offPct(p) + "% off" : "";
   document.getElementById("pDesc").textContent = p.desc;
   document.getElementById("sPrice").textContent = fmt(p.price);
-  document.getElementById("sMrp").textContent = fmt(p.mrp);
+  document.getElementById("sMrp").textContent = hasDiscount ? fmt(p.mrp) : "";
 
   // Gallery
   const mainImg = document.getElementById("mainImg");
