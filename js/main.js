@@ -76,6 +76,14 @@ if (burger && mobileMenu) {
     a.addEventListener("click", closeMobileMenu)
   );
 }
+// The menu hides itself via CSS past the mobile breakpoint, but the body
+// scroll lock set on open stays until closeMobileMenu() runs — and on
+// desktop the burger is gone, so the page would stay unscrollable.
+// Close it properly when the viewport grows past the breakpoint.
+const menuMedia = window.matchMedia("(min-width: 961px)");
+const closeMenuOnDesktop = (e) => { if (e.matches) closeMobileMenu(); };
+if (menuMedia.addEventListener) menuMedia.addEventListener("change", closeMenuOnDesktop);
+else menuMedia.addListener(closeMenuOnDesktop);
 
 /* ==================== CART DRAWER (injected) ==================== */
 document.body.insertAdjacentHTML(
