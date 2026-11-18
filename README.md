@@ -35,6 +35,15 @@ Har product ki 4 images, naming EXACT ye honi chahiye:
 
 > Jab tak image nahi hai, site placeholder dikhayegi (broken nahi lagegi).
 
+## ➕ Naya product kaise add kare
+
+1. `js/products.js` me `PRODUCTS` array me ek entry add karo — `id` unique hona chahiye.
+2. `category` in me se ek ho: `tshirts`, `shirts`, `bottoms`, `hoodies`, `footwear` — shop filters se match karta hai, warna product sirf "All" me dikhega.
+3. `images/products/` me uski 4 images daalo: `<id>-front.jpg`, `<id>-back.jpg`, `<id>-model-front.jpg`, `<id>-model-back.jpg`.
+4. `sizes` zaroor do — tees/shirts/hoodies ke liye `S`–`XXL`, bottoms ke liye waist `28`–`36`, footwear ke liye `UK 6`–`UK 10`.
+5. `fit` me us product ka fit note likho — product page ka "Fabric & Fit" section yahi dikhata hai.
+6. Shop page ka piece count aur discount badge apne aap update ho jate hain — kuch hard-code nahi karna.
+
 ## ⚙️ Customize karna
 
 - **WhatsApp number**: `js/main.js` me sabse upar `WHATSAPP_NUMBER` change karo (country code ke saath, bina `+` ke, e.g. `919876543210`)
