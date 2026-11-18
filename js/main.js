@@ -348,6 +348,12 @@ if (shopGrid) {
   });
   syncFilterPressed();
   renderGrid(active);
+  // shop.html hard-codes "8 pieces" — it goes stale the moment a product
+  // is added or removed, so derive the count from the catalogue instead.
+  const pageSub = document.querySelector(".page-sub");
+  if (pageSub) {
+    pageSub.textContent = `${PRODUCTS.length} ${PRODUCTS.length === 1 ? "piece" : "pieces"}. Zero fillers. All heat.`;
+  }
 }
 
 /* ==================== PRODUCT PAGE ==================== */
