@@ -251,10 +251,16 @@ function productCard(p) {
   const discountHtml = hasDiscount
     ? `<s class="mrp">${fmt(p.mrp)}</s><span class="off">${offPct(p)}% off</span>`
     : "";
+  // A product with no images used to render "undefined.jpg" (broken img
+  // plus a wrong placeholder label). Render the placeholder shell only.
+  const images = Array.isArray(p.images) ? p.images : [];
+  const imgHtml = images[0]
+    ? `<img src="${imgSrc(images[0])}" alt="${p.name}" loading="lazy" onerror="imgFail(this)">`
+    : "";
   return `
-  <a class="card" href="product.html?id=${p.id}" data-images="${p.images.join(',')}">
-    <div class="card-img ph-wrap" data-label="${p.images[0]}.jpg">
-      <img src="${imgSrc(p.images[0])}" alt="${p.name}" loading="lazy" onerror="imgFail(this)">
+  <a class="card" href="product.html?id=${p.id}" data-images="${images.join(',')}">
+    <div class="card-img ph-wrap" data-label="${images[0] ? images[0] + '.jpg' : ''}">
+      ${imgHtml}
       <span class="tag">${p.tag}</span>
     </div>
     <div class="card-info">
@@ -349,7 +355,12 @@ const productPage = document.getElementById("productPage");
 if (productPage) {
   const id = +(new URLSearchParams(location.search).get("id") || 1);
   const p = PRODUCTS.find((x) => x.id === id) || PRODUCTS[0];
-  let selectedSize = p.sizes[1] || p.sizes[0];
+  // A product with no sizes array used to throw on p.sizes[1] and kill the
+  // whole product page (gallery, related products included). Treat a
+  // missing/empty sizes list as "no size to pick" — addToCart already
+  // rejects a null size, and the WhatsApp link falls back to a generic order.
+  const sizes = Array.isArray(p.sizes) ? p.sizes : [];
+  let selectedSize = sizes[1] || sizes[0] || null;
 
   document.title = `${p.name} — DRIPCULT`;
   document.getElementById("crumbName").textContent = p.name;
@@ -369,6 +380,7 @@ if (productPage) {
   const mainImg = document.getElementById("mainImg");
   const mainWrap = document.getElementById("galleryMain");
   const thumbs = document.getElementById("thumbs");
+  const galleryImages = Array.isArray(p.images) ? p.images : [];
 
   function setMain(name) {
     mainWrap.classList.remove("ph");
@@ -379,7 +391,7 @@ if (productPage) {
     if (window.gsap) gsap.fromTo(mainImg, { opacity: 0.4, scale: 1.03 }, { opacity: 1, scale: 1, duration: 0.4 });
   }
 
-  thumbs.innerHTML = p.images
+  thumbs.innerHTML = galleryImages
     .map(
       (name, i) => `
     <button class="thumb ph-wrap${i === 0 ? " active" : ""}" data-name="${name}" data-label="${name}" aria-label="View image ${i + 1}">
@@ -395,11 +407,11 @@ if (productPage) {
       setMain(t.dataset.name);
     })
   );
-  if (p.images.length) setMain(p.images[0]);
+  if (galleryImages.length) setMain(galleryImages[0]);
 
   // Sizes
   const sizesEl = document.getElementById("sizes");
-  sizesEl.innerHTML = p.sizes
+  sizesEl.innerHTML = sizes
     .map((s) => `<button class="size-btn${s === selectedSize ? " active" : ""}" data-size="${s}">${s}</button>`)
     .join("");
   sizesEl.querySelectorAll(".size-btn").forEach((b) =>
@@ -418,7 +430,11 @@ if (productPage) {
   // change — building it once here left it stuck on the default size.
   const waOrderUrl = (size) =>
     `https://wa.me/${WHATSAPP_NUMBER}?text=` +
-    encodeURIComponent(`Hi DRIPCULT! I want to order: ${p.name} (Size ${size}) — ${fmt(p.price)}`);
+    encodeURIComponent(
+      size
+        ? `Hi DRIPCULT! I want to order: ${p.name} (Size ${size}) — ${fmt(p.price)}`
+        : `Hi DRIPCULT! I want to order: ${p.name} — ${fmt(p.price)}`
+    );
   document.getElementById("waBtn").href = waOrderUrl(selectedSize);
 
   // Related products
