@@ -412,11 +412,16 @@ if (productPage) {
   // Sizes
   const sizesEl = document.getElementById("sizes");
   sizesEl.innerHTML = sizes
-    .map((s) => `<button class="size-btn${s === selectedSize ? " active" : ""}" data-size="${s}">${s}</button>`)
+    .map((s) => `<button class="size-btn${s === selectedSize ? " active" : ""}" data-size="${s}" aria-pressed="${s === selectedSize}">${s}</button>`)
     .join("");
   sizesEl.querySelectorAll(".size-btn").forEach((b) =>
     b.addEventListener("click", () => {
-      sizesEl.querySelectorAll(".size-btn").forEach((x) => x.classList.remove("active"));
+      sizesEl.querySelectorAll(".size-btn").forEach((x) => {
+        x.classList.remove("active");
+        // The selected size was only visual; keep aria-pressed in sync so
+        // screen readers announce which size is currently picked.
+        x.setAttribute("aria-pressed", String(x === b));
+      });
       b.classList.add("active");
       selectedSize = b.dataset.size;
       document.getElementById("waBtn").href = waOrderUrl(selectedSize);
