@@ -379,6 +379,11 @@ if (productPage) {
   document.getElementById("pMrp").textContent = hasDiscount ? fmt(p.mrp) : "";
   document.getElementById("pOff").textContent = hasDiscount ? offPct(p) + "% off" : "";
   document.getElementById("pDesc").textContent = p.desc;
+  // The "Fabric & Fit" line was hard-coded in HTML, so every product —
+  // cargos, sneakers included — claimed "Model is wearing size M".
+  // Use the product's own fit note, falling back to the old line.
+  document.getElementById("pFit").textContent =
+    p.fit || "Oversized fit. Model is wearing size M.";
   document.getElementById("sPrice").textContent = fmt(p.price);
   document.getElementById("sMrp").textContent = hasDiscount ? fmt(p.mrp) : "";
 
