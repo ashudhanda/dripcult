@@ -6,6 +6,9 @@
 // category MUST be one of: tshirts, shirts, bottoms, hoodies, footwear —
 // ye values shop.html ke filter buttons (data-filter) se match karni chahiye.
 // Koi aur value doge to product sirf "All" filter me dikhega, apni category me nahi.
+// fit = product page ke "Fabric & Fit" section me dikhne wala note — har
+// product ka apna likho, generic "Model is wearing size M" sab pe galat padta hai
+// (footwear pe UK size hota hai, bottoms pe waist size).
 // ============================================
 
 const PRODUCTS = [
@@ -17,6 +20,7 @@ const PRODUCTS = [
     mrp: 1299,
     tag: "Bestseller",
     desc: "240 GSM heavyweight cotton. Drop shoulders, boxy fit. Bold 'URBAN DISRUPTION' chest print. Made to stand out.",
+    fit: "Oversized fit. Model is wearing size M.",
     images: ["1-front", "1-back", "1-model-front", "1-model-back"],
     sizes: ["S", "M", "L", "XL", "XXL"]
   },
@@ -28,6 +32,7 @@ const PRODUCTS = [
     mrp: 1499,
     tag: "New Drop",
     desc: "Vintage acid-wash charcoal tee with skeleton rose back print. Every wash pattern is unique — just like you.",
+    fit: "Relaxed fit. Model is wearing size M.",
     images: ["2-front", "2-back", "2-model-front", "2-model-back"],
     sizes: ["S", "M", "L", "XL", "XXL"]
   },
@@ -39,6 +44,7 @@ const PRODUCTS = [
     mrp: 2199,
     tag: "Trending",
     desc: "Slim-thigh, tapered-ankle cargos in cotton twill. 6 pockets, snap-flap thighs, drawstring cuffs. Utility done right.",
+    fit: "Slim-thigh, tapered-ankle fit. Model is wearing size 32.",
     images: ["3-front", "3-back", "3-model-front", "3-model-back"],
     sizes: ["28", "30", "32", "34", "36"]
   },
@@ -50,6 +56,7 @@ const PRODUCTS = [
     mrp: 2499,
     tag: "Bestseller",
     desc: "Light blue baggy straight-leg jeans with vintage thigh fading. Stacks perfectly over sneakers.",
+    fit: "Baggy straight-leg fit. Model is wearing size 32.",
     images: ["4-front", "4-back", "4-model-front", "4-model-back"],
     sizes: ["28", "30", "32", "34", "36"]
   },
@@ -61,6 +68,7 @@ const PRODUCTS = [
     mrp: 1699,
     tag: "New Drop",
     desc: "Oversized cuban collar shirt in rust orange viscose with abstract line print. Breathable, boxy, effortless.",
+    fit: "Oversized boxy fit. Model is wearing size M.",
     images: ["5-front", "5-back", "5-model-front", "5-model-back"],
     sizes: ["S", "M", "L", "XL", "XXL"]
   },
@@ -72,6 +80,7 @@ const PRODUCTS = [
     mrp: 2799,
     tag: "Premium",
     desc: "450 GSM fleece. Double-layer hood, embroidered mountain logo. The heaviest hoodie you'll ever own.",
+    fit: "Oversized fit. Model is wearing size L.",
     images: ["6-front", "6-back", "6-model-front", "6-model-back"],
     sizes: ["S", "M", "L", "XL", "XXL"]
   },
@@ -83,6 +92,7 @@ const PRODUCTS = [
     mrp: 4299,
     tag: "Hot",
     desc: "Chunky retro low-tops. White leather, grey suede panels, neon green heel hits. Built for the streets.",
+    fit: "True to size. Model is wearing UK 9.",
     images: ["7-front", "7-back", "7-model-front", "7-model-back"],
     sizes: ["UK 6", "UK 7", "UK 8", "UK 9", "UK 10"]
   },
@@ -94,6 +104,7 @@ const PRODUCTS = [
     mrp: 1999,
     tag: "Trending",
     desc: "Black stretch-cotton joggers with zippered thigh pockets and ribbed cuffs. All-black everything.",
+    fit: "Regular fit. Model is wearing size M.",
     images: ["8-front", "8-back", "8-model-front", "8-model-back"],
     sizes: ["S", "M", "L", "XL", "XXL"]
   }
