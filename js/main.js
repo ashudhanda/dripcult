@@ -460,6 +460,23 @@ if (productPage) {
   attachCardCycler(relatedRow);
 }
 
+/* ==================== NEWSLETTER ==================== */
+// The footer form used to carry its submit logic inline in index.html
+// (onsubmit="..."). Keeping it here means the behaviour lives with the
+// rest of the site JS and the markup stays declarative. There is no
+// backend yet, so confirm locally and never reload the page — a plain
+// submit would wipe the cart drawer's state and scroll position.
+document.querySelectorAll(".news-form").forEach((form) => {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const btn = form.querySelector("button");
+    const input = form.querySelector("input");
+    btn.textContent = "Subscribed ✓";
+    btn.disabled = true;
+    input.value = "";
+  });
+});
+
 /* ==================== ANIMATIONS (sirf hero entrance — scroll simple/native hai) ==================== */
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
