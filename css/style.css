@@ -209,6 +209,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @keyframes marquee { to { transform: translateX(-50%); } }
 
 /* ---------- SECTIONS ---------- */
+/* The nav is fixed (64px), so an anchor jump (#featured, #about) used to
+   park the section title underneath it. Offset anchored sections by the
+   nav height plus a breathing gap. */
+.section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
+
 .section { padding: 88px 0; }
 .section-alt { background: var(--surface); }
 
