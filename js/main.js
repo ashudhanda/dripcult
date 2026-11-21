@@ -257,7 +257,11 @@ document.getElementById("checkoutBtn").addEventListener("click", () => {
     .filter(Boolean);
   if (!lines.length) return;
   const msg = `Hi DRIPCULT! Mera order:\n\n${lines.join("\n")}\n\nTotal: ${fmt(total)}`;
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
+  const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  // window.open returns null when the popup is blocked — without a
+  // fallback the click silently does nothing, so navigate in the same tab.
+  const win = window.open(waUrl, "_blank");
+  if (!win) window.location.href = waUrl;
 });
 
 renderCart();
