@@ -134,6 +134,25 @@ document.addEventListener("keydown", (e) => {
   // Keyboard users previously had no way to dismiss the mobile menu.
   if (e.key === "Escape" && mobileMenu && mobileMenu.classList.contains("open")) closeMobileMenu();
 });
+// The drawer is a modal (aria-modal="true") but Tab could still leave it
+// and wander the page behind it — focus moved in on open, but nothing kept
+// it there. Trap Tab inside the drawer while it is open.
+cartDrawer.addEventListener("keydown", (e) => {
+  if (e.key !== "Tab" || !cartDrawer.classList.contains("open")) return;
+  const focusables = [...cartDrawer.querySelectorAll(
+    "button, a[href], input, [tabindex]:not([tabindex='-1'])"
+  )].filter((el) => !el.disabled);
+  if (!focusables.length) return;
+  const first = focusables[0];
+  const last = focusables[focusables.length - 1];
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
+});
 
 /* ==================== CART LOGIC ==================== */
 let cart = [];
