@@ -33,6 +33,11 @@ function updateThemeIcons() {
   document.querySelectorAll("[data-theme-toggle] .t-icon").forEach((i) => {
     i.textContent = dark ? "\u2600\ufe0f" : "\ud83c\udf19";
   });
+  // The browser chrome colour stayed dark even in light mode; keep the
+  // theme-color meta in sync so the address bar matches the theme.
+  // (Pages without the meta tag simply skip this.)
+  const themeMeta = document.querySelector("meta[name='theme-color']");
+  if (themeMeta) themeMeta.setAttribute("content", dark ? "#0a0a0a" : "#f6f6f4");
 }
 
 document.querySelectorAll("[data-theme-toggle]").forEach((btn) => {
