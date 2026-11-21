@@ -313,10 +313,15 @@ function attachCardCycler(scope) {
     let timer = null;
     const show = (n) => {
       i = n;
-      img.style.display = "";
       wrap.classList.remove("ph");
       wrap.dataset.label = names[i] + ".jpg";
       img.src = imgSrc(names[i]);
+      // imgFail hides a broken image on error; restoring display here
+      // would resurrect it on mouseleave (show(0)), so only unhide an
+      // image that actually loaded. A fresh src is still loading
+      // (complete === false), so it is unhidden optimistically and
+      // imgFail re-hides it if the load errors.
+      if (!img.complete || img.naturalWidth > 0) img.style.display = "";
     };
     card.addEventListener("mouseenter", () => {
       // Baaki images preload, taki swap smooth ho
