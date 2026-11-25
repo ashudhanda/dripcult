@@ -207,6 +207,9 @@ function renderCart() {
   const countEl = document.getElementById("cartCount");
   const totalEl = document.getElementById("cartTotal");
   const count = cart.reduce((s, c) => s + c.qty, 0);
+  // The count changed silently for screen readers; announce it so the
+  // add/remove feedback is not visual-only.
+  if (countEl) countEl.setAttribute("aria-live", "polite");
   if (countEl) countEl.textContent = count;
 
   if (!cart.length) {
