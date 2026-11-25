@@ -555,6 +555,12 @@ document.querySelectorAll(".news-form").forEach((form) => {
     const input = form.querySelector("input");
     btn.textContent = "Subscribed ✓";
     btn.disabled = true;
+    // The button text change is not announced to screen readers; add a
+    // live-region confirmation so the success is spoken, not just seen.
+    const note = document.createElement("p");
+    note.setAttribute("role", "status");
+    note.textContent = "Thanks — you're on the list.";
+    form.appendChild(note);
     input.value = "";
   });
 });
