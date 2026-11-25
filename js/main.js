@@ -458,6 +458,19 @@ if (productPage) {
   sizesEl.innerHTML = sizes
     .map((s) => `<button class="size-btn${s === selectedSize ? " active" : ""}" data-size="${s}" aria-pressed="${s === selectedSize}">${s}</button>`)
     .join("");
+  // A product with no sizes used to leave two live "Add to Cart" buttons
+  // that silently did nothing (addToCart rejects a null size). Disable
+  // both and say why, instead of a dead click.
+  if (!sizes.length) {
+    sizesEl.innerHTML = `<p>Sizes not available for this product yet.</p>`;
+    for (const id of ["addBtn", "stickyAdd"]) {
+      const btn = document.getElementById(id);
+      if (btn) {
+        btn.disabled = true;
+        btn.title = "No sizes available for this product";
+      }
+    }
+  }
   sizesEl.querySelectorAll(".size-btn").forEach((b) =>
     b.addEventListener("click", () => {
       sizesEl.querySelectorAll(".size-btn").forEach((x) => {
