@@ -178,6 +178,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .btn-accent { background: var(--accent); color: var(--accent-text); }
 .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(198, 245, 39, 0.32); }
+/* A disabled button (e.g. Add to Cart on a size-less product) must look
+   unclickable, not like a live accent button — and must not lift on hover. */
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.btn-accent:disabled:hover, .btn-wa:disabled:hover { transform: none; box-shadow: none; }
 .btn-ghost { border: 1px solid var(--border); color: var(--text); }
 .btn-ghost:hover { border-color: var(--text); transform: translateY(-2px); }
 .btn-wa { background: #25d366; color: #06250f; }
