@@ -17,6 +17,16 @@ function storageSet(key, value) {
 }
 
 const fmt = (n) => "\u20b9" + n.toLocaleString("en-IN");
+// Product names/tags come from products.js, which the shop owner edits by
+// hand — a stray <, & or " in a name used to break the markup (or an
+// attribute) wherever it was interpolated into innerHTML. Escape for both
+// text and attribute contexts before interpolating.
+const esc = (v) =>
+  String(v)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 const imgSrc = (name) => `images/products/${name}.jpg`;
 // A missing or zero MRP used to produce NaN/Infinity in the "% off" badge,
 // and a price above MRP produced a negative discount. Clamp to a sane 0-100.
@@ -214,18 +224,18 @@ function renderCart() {
       return `
       <div class="cart-item">
         <div class="ci-img ph-wrap" data-label="">
-          <img src="${imgSrc(p.images[0])}" alt="${p.name}" onerror="imgFail(this)">
+          <img src="${imgSrc(p.images[0])}" alt="${esc(p.name)}" onerror="imgFail(this)">
         </div>
         <div>
-          <h4>${p.name}</h4>
+          <h4>${esc(p.name)}</h4>
           <p class="ci-meta">Size: ${c.size} · ${fmt(p.price)}</p>
           <div class="qty-row">
-            <button class="qty-btn" data-qty="-1" data-i="${i}" aria-label="Decrease quantity of ${p.name}">−</button>
+            <button class="qty-btn" data-qty="-1" data-i="${i}" aria-label="Decrease quantity of ${esc(p.name)}">−</button>
             <span>${c.qty}</span>
-            <button class="qty-btn" data-qty="1" data-i="${i}" aria-label="Increase quantity of ${p.name}">+</button>
+            <button class="qty-btn" data-qty="1" data-i="${i}" aria-label="Increase quantity of ${esc(p.name)}">+</button>
           </div>
         </div>
-        <button class="ci-remove" data-remove="${i}" aria-label="Remove ${p.name} from cart">Remove</button>
+        <button class="ci-remove" data-remove="${i}" aria-label="Remove ${esc(p.name)} from cart">Remove</button>
       </div>`;
     })
     .join("");
@@ -283,16 +293,16 @@ function productCard(p) {
   // plus a wrong placeholder label). Render the placeholder shell only.
   const images = Array.isArray(p.images) ? p.images : [];
   const imgHtml = images[0]
-    ? `<img src="${imgSrc(images[0])}" alt="${p.name}" loading="lazy" onerror="imgFail(this)">`
+    ? `<img src="${imgSrc(images[0])}" alt="${esc(p.name)}" loading="lazy" onerror="imgFail(this)">`
     : "";
   return `
   <a class="card" href="product.html?id=${p.id}" data-images="${images.join(',')}">
     <div class="card-img ph-wrap" data-label="${images[0] ? images[0] + '.jpg' : ''}">
       ${imgHtml}
-      <span class="tag">${p.tag}</span>
+      <span class="tag">${esc(p.tag)}</span>
     </div>
     <div class="card-info">
-      <h4>${p.name}</h4>
+      <h4>${esc(p.name)}</h4>
       <div class="price-row">
         <span class="price">${fmt(p.price)}</span>
         ${discountHtml}
