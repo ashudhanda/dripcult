@@ -270,7 +270,14 @@ document.getElementById("checkoutBtn").addEventListener("click", () => {
       return `• ${p.name} (${c.size}) x${c.qty} — ${fmt(p.price * c.qty)}`;
     })
     .filter(Boolean);
-  if (!lines.length) return;
+  if (!lines.length) {
+    // Every entry is stale (its product left the catalogue): drop them
+    // so the next click is not another dead one, and re-render to show
+    // the empty cart instead of leaving the dead entries in place.
+    cart = cart.filter((c) => PRODUCTS.some((x) => x.id === c.id));
+    saveCart();
+    return;
+  }
   const msg = `Hi DRIPCULT! Mera order:\n\n${lines.join("\n")}\n\nTotal: ${fmt(total)}`;
   const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   // window.open returns null when the popup is blocked — without a
