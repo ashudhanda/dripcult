@@ -348,12 +348,27 @@ function attachCardCycler(scope) {
       names.forEach((nm) => { const pre = new Image(); pre.src = imgSrc(nm); });
       clearInterval(timer);
       timer = setInterval(() => show((i + 1) % names.length), 1000);
+      // Keep the id on the card so a grid re-render can stop it (see
+      // clearCardCyclers): without this the interval keeps firing on a
+      // detached card after a filter swap.
+      card._cyclerTimer = timer;
     });
     card.addEventListener("mouseleave", () => {
       clearInterval(timer);
       timer = null;
+      card._cyclerTimer = null;
       show(0);
     });
+  });
+}
+
+/* A filter re-render replaces the grid's cards while a hovered card's
+   cycler interval keeps firing on the detached node — invisible, but the
+   interval runs forever. Clear every live cycler before swapping the grid. */
+function clearCardCyclers(scope) {
+  scope.querySelectorAll(".card").forEach((card) => {
+    if (card._cyclerTimer) clearInterval(card._cyclerTimer);
+    card._cyclerTimer = null;
   });
 }
 
@@ -373,6 +388,7 @@ if (shopGrid) {
       filter === "all" ? PRODUCTS
       : filter === "new" ? PRODUCTS.filter((p) => p.tag === "New Drop")
       : PRODUCTS.filter((p) => p.category === filter);
+    clearCardCyclers(shopGrid);
     shopGrid.innerHTML = list.map(productCard).join("") || `<p class="cart-empty">No products yet.</p>`;
     attachCardCycler(shopGrid);
   };
