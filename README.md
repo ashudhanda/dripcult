@@ -40,9 +40,10 @@ Har product ki 4 images, naming EXACT ye honi chahiye:
 1. `js/products.js` me `PRODUCTS` array me ek entry add karo — `id` unique hona chahiye.
 2. `category` in me se ek ho: `tshirts`, `shirts`, `bottoms`, `hoodies`, `footwear` — shop filters se match karta hai, warna product sirf "All" me dikhega.
 3. `images/products/` me uski 4 images daalo: `<id>-front.jpg`, `<id>-back.jpg`, `<id>-model-front.jpg`, `<id>-model-back.jpg`.
-4. `sizes` zaroor do — tees/shirts/hoodies ke liye `S`–`XXL`, bottoms ke liye waist `28`–`36`, footwear ke liye `UK 6`–`UK 10`.
+4. `sizes` zaroor do — tees/shirts/hoodies ke liye `S`–`XXL`, bottoms ke liye waist `28`–`36`, footwear ke liye `UK 6`–`UK 10`. Agar kisi product ki sizes list khaali ho to product page ke dono "Add to Cart" button disable ho jate hain (sizes aane par wapas enable).
 5. `fit` me us product ka fit note likho — product page ka "Fabric & Fit" section yahi dikhata hai.
 6. Shop page ka piece count aur discount badge apne aap update ho jate hain — kuch hard-code nahi karna.
+7. Naam/tag me `<`, `&` ya `"` ho to bhi safe hai — `js/main.js` unhe HTML me daalne se pehle escape karta hai.
 
 ## ⚙️ Customize karna
 
@@ -59,7 +60,7 @@ Navbar me right side ☀️ / 🌙 button — dark ↔ light. User ki choice loc
 
 - Fully mobile responsive (2-col grid, fullscreen menu, sticky add-to-cart bar)
 - GSAP hero entrance animation (scrolling native hai, koi smooth-scroll library nahi)
-- Cart (localStorage) + WhatsApp checkout
+- Cart (localStorage) + WhatsApp checkout — catalogue se hata diye gaye product ki stale cart entry checkout par purge ho jati hai (dead click nahi)
 - Shop page filters (category-wise)
 - Product page: 4-image gallery, size selector, WhatsApp order button
 - Image missing ho toh graceful placeholder
