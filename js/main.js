@@ -496,7 +496,7 @@ if (productPage) {
   thumbs.innerHTML = galleryImages
     .map(
       (name, i) => `
-    <button class="thumb ph-wrap${i === 0 ? " active" : ""}" data-name="${name}" data-label="${name}" aria-label="View image ${i + 1}">
+    <button class="thumb ph-wrap${i === 0 ? " active" : ""}" data-name="${name}" data-label="${name}" aria-label="View image ${i + 1}" aria-current="${i === 0}">
       <img src="${imgSrc(name)}" alt="" loading="lazy" onerror="imgFail(this)">
     </button>`
     )
@@ -504,7 +504,12 @@ if (productPage) {
 
   thumbs.querySelectorAll(".thumb").forEach((t) =>
     t.addEventListener("click", () => {
-      thumbs.querySelectorAll(".thumb").forEach((x) => x.classList.remove("active"));
+      thumbs.querySelectorAll(".thumb").forEach((x) => {
+        x.classList.remove("active");
+        // The active thumb was only visual; keep aria-current in sync so
+        // screen readers announce which image is currently shown.
+        x.setAttribute("aria-current", String(x === t));
+      });
       t.classList.add("active");
       setMain(t.dataset.name);
     })
