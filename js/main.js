@@ -506,7 +506,15 @@ if (productPage) {
       setMain(t.dataset.name);
     })
   );
+  // A product with no images used to leave the gallery <img> on its empty
+  // src, showing a broken-image icon. Hide it and show the placeholder
+  // shell with the product name instead.
   if (galleryImages.length) setMain(galleryImages[0]);
+  else {
+    mainWrap.classList.add("ph");
+    mainWrap.dataset.label = p.name;
+    mainImg.style.display = "none";
+  }
 
   // Sizes
   const sizesEl = document.getElementById("sizes");
