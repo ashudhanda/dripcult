@@ -408,7 +408,10 @@ if (shopGrid) {
       : filter === "new" ? PRODUCTS.filter((p) => p.tag === "New Drop")
       : PRODUCTS.filter((p) => p.category === filter);
     clearCardCyclers(shopGrid);
-    shopGrid.innerHTML = list.map(productCard).join("") || `<p class="cart-empty">No products yet.</p>`;
+    // An empty filtered list used to claim "No products yet." — wrong when
+    // the catalogue has products and only this filter matches none.
+    shopGrid.innerHTML = list.map(productCard).join("") ||
+      `<p class="cart-empty">${filter === "all" ? "No products yet." : "No products in this category yet."}</p>`;
     attachCardCycler(shopGrid);
   };
 
