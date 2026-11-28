@@ -324,11 +324,14 @@ function productCard(p) {
   const imgHtml = images[0]
     ? `<img src="${imgSrc(images[0])}" alt="${esc(p.name)}" loading="lazy" onerror="imgFail(this)">`
     : "";
+  // A missing tag rendered as a literal "undefined" pill; image names land
+  // in data-* attributes, so escape them like every other interpolation.
+  const tagHtml = p.tag ? `<span class="tag">${esc(p.tag)}</span>` : "";
   return `
-  <a class="card" href="product.html?id=${p.id}" data-images="${images.join(',')}">
-    <div class="card-img ph-wrap" data-label="${images[0] ? images[0] + '.jpg' : ''}">
+  <a class="card" href="product.html?id=${p.id}" data-images="${esc(images.join(","))}">
+    <div class="card-img ph-wrap" data-label="${esc(images[0] ? images[0] + ".jpg" : "")}">
       ${imgHtml}
-      <span class="tag">${esc(p.tag)}</span>
+      ${tagHtml}
     </div>
     <div class="card-info">
       <h4>${esc(p.name)}</h4>
