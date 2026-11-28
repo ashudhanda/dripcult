@@ -225,6 +225,11 @@ function renderCart() {
   // add/remove feedback is not visual-only.
   if (countEl) countEl.setAttribute("aria-live", "polite");
   if (countEl) countEl.textContent = count;
+  // An empty cart used to leave a live Checkout button that did nothing on
+  // click. Disable it (CSS already dims :disabled buttons) and re-enable
+  // it as soon as something is added.
+  const checkoutBtn = document.getElementById("checkoutBtn");
+  if (checkoutBtn) checkoutBtn.disabled = !cart.length;
 
   if (!cart.length) {
     wrap.innerHTML = `<p class="cart-empty">Cart khali hai 👀<br>Kuch heat add karo!</p>`;
