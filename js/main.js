@@ -71,7 +71,7 @@ function closeMobileMenu() {
   burger.classList.remove("open");
   burger.setAttribute("aria-expanded", "false");
   burger.setAttribute("aria-label", "Open menu");
-  document.body.style.overflow = "";
+  syncBodyScroll();
 }
 if (burger && mobileMenu) {
   // The button had no expanded state, so assistive tech could not tell
@@ -85,7 +85,7 @@ if (burger && mobileMenu) {
     burger.setAttribute("aria-expanded", String(open));
     // The label used to stay "Open menu" while the menu was open.
     burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    document.body.style.overflow = open ? "hidden" : "";
+    syncBodyScroll();
   });
   mobileMenu.querySelectorAll("a").forEach((a) =>
     a.addEventListener("click", closeMobileMenu)
@@ -125,6 +125,17 @@ document.getElementById("waFloat").href =
 
 const cartDrawer = document.getElementById("cartDrawer");
 const cartOverlay = document.getElementById("cartOverlay");
+// Both the cart drawer and the mobile menu lock body scroll while open,
+// and either one closing used to clear the lock for both — so closing the
+// menu while the cart was open left the page scrollable behind the drawer
+// (and vice versa). Derive the lock from the two open states instead, so
+// one layer closing never unlocks the other.
+function syncBodyScroll() {
+  const locked =
+    (cartDrawer && cartDrawer.classList.contains("open")) ||
+    (mobileMenu && mobileMenu.classList.contains("open"));
+  document.body.style.overflow = locked ? "hidden" : "";
+}
 // The drawer starts closed but off-screen, so keep it out of the tab order
 // until it is opened — otherwise keyboard users tab through hidden controls.
 cartDrawer.inert = true;
@@ -133,7 +144,7 @@ function openCart(open) {
   cartDrawer.classList.toggle("open", open);
   cartOverlay.classList.toggle("open", open);
   cartDrawer.inert = !open;
-  document.body.style.overflow = open ? "hidden" : "";
+  syncBodyScroll();
   // Move focus into the drawer when it opens and back to the cart button
   // when it closes, so keyboard users are never stranded behind it.
   // (inert is cleared first, otherwise the focus call is a no-op.)
@@ -145,9 +156,12 @@ document.getElementById("cartClose").addEventListener("click", () => openCart(fa
 cartOverlay.addEventListener("click", () => openCart(false));
 // Keyboard users had no way to dismiss the drawer except the close button.
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && cartDrawer.classList.contains("open")) openCart(false);
+  if (e.key !== "Escape") return;
+  // The cart sits above the menu, so one Escape used to dismiss both
+  // layers at once. Close only the topmost open layer per press.
+  if (cartDrawer.classList.contains("open")) { openCart(false); return; }
   // Keyboard users previously had no way to dismiss the mobile menu.
-  if (e.key === "Escape" && mobileMenu && mobileMenu.classList.contains("open")) closeMobileMenu();
+  if (mobileMenu && mobileMenu.classList.contains("open")) closeMobileMenu();
 });
 // The drawer is a modal (aria-modal="true") but Tab could still leave it
 // and wander the page behind it — focus moved in on open, but nothing kept
