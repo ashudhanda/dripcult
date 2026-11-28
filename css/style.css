@@ -122,9 +122,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: flex; flex-direction: column; justify-content: center; gap: 8px;
   padding: 0 8%;
   transform: translateY(-102%);
-  transition: transform 0.45s cubic-bezier(0.77, 0, 0.18, 1);
+  /* Off-screen is not hidden: the translated menu stayed in the tab order,
+     so keyboard users tabbed through invisible links. Keep it out of the
+     tab order and screen readers until it opens (visibility flips at the
+     end of the close slide, at the start of the open slide). */
+  visibility: hidden;
+  transition: transform 0.45s cubic-bezier(0.77, 0, 0.18, 1), visibility 0s linear 0.45s;
 }
-.mobile-menu.open { transform: none; }
+.mobile-menu.open { transform: none; visibility: visible; transition: transform 0.45s cubic-bezier(0.77, 0, 0.18, 1), visibility 0s; }
 .mobile-menu a {
   font-family: var(--font-display);
   font-size: clamp(40px, 10vw, 64px);
