@@ -60,9 +60,10 @@ Navbar me right side ☀️ / 🌙 button — dark ↔ light. User ki choice loc
 
 - Fully mobile responsive (2-col grid, fullscreen menu, sticky add-to-cart bar)
 - GSAP hero entrance animation (scrolling native hai, koi smooth-scroll library nahi)
-- Cart (localStorage) + WhatsApp checkout — catalogue se hata diye gaye product ki stale cart entry checkout par purge ho jati hai (dead click nahi)
-- Shop page filters (category-wise)
-- Product page: 4-image gallery, size selector, WhatsApp order button
+- Cart (localStorage) + WhatsApp checkout — catalogue se hata diye gaye product ki stale cart entry checkout par purge ho jati hai (dead click nahi); khali cart par Checkout button disable rehta hai
+- Shop page filters (category-wise) — koi filter match na kare to "No products in this category yet." dikhta hai, catalogue khali ho to hi "No products yet."
+- Product page: 4-image gallery (active thumbnail `aria-current` se announce hota hai), size selector, WhatsApp order button; jis product ki koi image na ho uska gallery placeholder dikhata hai
+- Cart drawer aur mobile menu layered overlays hain — Escape sirf upar wali layer band karta hai, aur body scroll lock dono me se koi ek khula ho to bhi bana rehta hai; band mobile menu tab order me nahi aata
 - Image missing ho toh graceful placeholder
 
 ## 🔗 Shop filters (deep links)
